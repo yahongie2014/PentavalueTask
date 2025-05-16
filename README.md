@@ -1,13 +1,33 @@
 # PentavalueTask
+## Summary
+This Project Structured Using SOLID & MVC Pattern
+``Micro Frame Work`` Inpired From Art Of Laravel Structure build by Native Code using PSR-4 Standard Some Help From AI To Gen Fronted Design Structure Build By Me :)
+![](frame.gif)
+
 
 ## Tree Project
 ```
+│   .env.example
+│   .gitignore
+│   Backend Task.pdf
+│   composer.json
+│   destroy.bat
+│   docker-compose.yml
+│   index.php
+│   Installation.bat
+│   LICENSE
+│   README.md
+│   RealTime Orders Revenue.postman_collection.json
+│   Redis.php
+│   server.php
+│   start-all.bat
+│
 ├───App
 │       SalesController.php
 │
 ├───Connectivity
-│       DatabaseConnection.php
 │       DB.php
+│       DBConnectionInterface.php
 │       MySQLConnection.php
 │
 ├───Events
@@ -19,18 +39,7 @@
 └───public
         .htaccess
         index.html
-│   .gitignore
-│   Backend Task.pdf
-│   composer.json
-│   index.php
-│   Installation.bat
-│   LICENSE
-│   README.md
-│   RealTime Orders Revenue.postman_collection.json
-│   Redis.php
-│   server.php
-│   start-all.bat
-│   .env.example
+        test-api.html
 ```
 
 
