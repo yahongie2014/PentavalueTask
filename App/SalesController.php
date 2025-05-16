@@ -120,7 +120,7 @@ class SalesController
 
             $adjustedProducts[] = [
                 'product' => $product['name'],
-                'price' => $adjusted .' LE'
+                'price' => $adjusted . ' LE'
             ];
         }
 
@@ -225,4 +225,14 @@ class SalesController
         exit;
 
     }
+
+    public function getAPiRequest()
+    {
+        header("Location: /test-api.html");
+        exit();
+
+    }
+
 }
+
+?>

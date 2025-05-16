@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Universal API Tester</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 p-8">
+<div class="max-w-4xl mx-auto space-y-6">
+
+    <div class="flex justify-between items-center bg-white p-4 rounded-xl shadow-md mb-6">
+        <h1 class="text-xl font-bold">🧪 Universal API Tester</h1>
+        <a href="/" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">🏠 Dashboard</a>
+    </div>
+
+    <div class="bg-white p-6 rounded shadow space-y-4">
+        <label class="block text-sm font-medium">Choose API Endpoint:</label>
+        <select id="apiSelect" onchange="renderForm()" class="w-full p-2 border rounded">
+            <option value="">-- Select API --</option>
+            <option value="GET:/products">GET /products</option>
+            <option value="POST:/create_order">POST /create_order</option>
+            <option value="GET:/recommendations">GET /recommendations</option>
+            <option value="GET:/analytics">GET /analytics</option>
+        </select>
+
+        <form id="apiForm" onsubmit="submitAPIRequest(event)" class="space-y-4"></form>
+
+        <pre id="apiResult" class="bg-gray-100 p-3 rounded text-sm overflow-x-auto h-64"></pre>
+    </div>
+</div>
+
+<script>
+    function renderForm() {
+        const select = document.getElementById('apiSelect').value;
+        const [method, endpoint] = select.split(':');
+        const form = document.getElementById('apiForm');
+        form.innerHTML = '';
+
+        const title = document.createElement('h2');
+        title.className = 'text-lg font-bold';
+        title.textContent = `${method} ${endpoint}`;
+        form.appendChild(title);
+
+        form.dataset.method = method;
+        form.dataset.endpoint = endpoint;
+
+        if (method === 'POST' && endpoint === '/create_order') {
+            ['product_id', 'quantity', 'price', 'date'].forEach(field => {
+                const input = document.createElement('input');
+                input.className = 'w-full p-2 border rounded';
+                input.name = field;
+                input.placeholder = field.replace('_', ' ');
+                input.type = (field === 'price') ? 'number' :
+                    (field === 'date') ? 'datetime-local' : 'number';
+                form.appendChild(input);
+            });
+        } else if (method === 'POST' && endpoint === '/feedback') {
+            ['user', 'message', 'rating'].forEach(field => {
+                const input = document.createElement('input');
+                input.className = 'w-full p-2 border rounded';
+                input.name = field;
+                input.placeholder = field.charAt(0).toUpperCase() + field.slice(1);
+                input.type = field === 'rating' ? 'number' : 'text';
+                form.appendChild(input);
+            });
+        }
+
+
+        const submit = document.createElement('button');
+        submit.type = 'submit';
+        submit.className = 'bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700';
+        submit.textContent = 'Submit Request';
+        form.appendChild(submit);
+    }
+
+    async function submitAPIRequest(e) {
+        e.preventDefault();
+        const form = e.target;
+        const method = form.dataset.method;
+        const endpoint = form.dataset.endpoint;
+
+        let response;
+        if (method === 'GET') {
+            response = await fetch(endpoint);
+        } else if (method === 'POST') {
+            const payload = {};
+            for (const input of form.querySelectorAll('input')) {
+                payload[input.name] = input.name === 'price'
+                    ? parseFloat(input.value)
+                    : input.name === 'quantity' || input.name === 'product_id'
+                        ? parseInt(input.value)
+                        : input.name === 'date'
+                            ? input.value.replace('T', ' ')
+                            : input.value;
+            }
+
+            response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+        }
+
+        const result = await response.json();
+        document.getElementById('apiResult').textContent = JSON.stringify(result, null, 2);
+    }
+</script>
+</body>
+</html>
