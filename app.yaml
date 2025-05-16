@@ -1,6 +1,14 @@
 kind: wasmer.io/App.v0
-name: pentavaluetask
+name: sales-ticket
 owner: yahongie2014
 package: .
+language: php
+
 scaling:
   mode: single_concurrency
+
+build:
+  command: composer install --no-dev --optimize-autoloader
+
+run:
+  command: php -S 0.0.0.0:8080 -t public
