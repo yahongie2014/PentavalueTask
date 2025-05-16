@@ -9,10 +9,10 @@ This Project Structured Using SOLID & MVC Pattern
 ```
 │   .env.example
 │   .gitignore
-│   Backend Task.pdf
 │   composer.json
 │   destroy.bat
 │   docker-compose.yml
+│   frame.gif
 │   index.php
 │   Installation.bat
 │   LICENSE
@@ -21,17 +21,29 @@ This Project Structured Using SOLID & MVC Pattern
 │   Redis.php
 │   server.php
 │   start-all.bat
+│   task.png
 │
 ├───App
-│       SalesController.php
+│   │   SalesController.php
+│   │
+│   ├───Events
+│   │       getAnalyticsData.php
+│   │
+│   ├───Helpers
+│   │       ResponseHelper.php
+│   │
+│   ├───Repositories
+│   │       OrderRepository.php
+│   │       ProductRepository.php
+│   │
+│   └───Services
+│           OrderService.php
+│           ProductService.php
 │
 ├───Connectivity
 │       DB.php
 │       DBConnectionInterface.php
 │       MySQLConnection.php
-│
-├───Events
-│       getAnalyticsData.php
 │
 ├───MindMap
 │       Router.php
