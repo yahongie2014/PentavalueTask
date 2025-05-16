@@ -1,5 +1,5 @@
 kind: wasmer.io/App.v0
-name: sales-ticket
+name: pentavaluetask
 owner: yahongie2014
 package: .
 language: php
