@@ -2,7 +2,7 @@
 
 namespace MindMap;
 
-use Helpers\ResponseHelper;
+use App\Helpers\ResponseHelper;
 
 class Router
 {

@@ -3,31 +3,35 @@
 namespace App;
 
 use App\Services\OrderService;
-use Helpers\ResponseHelper;
+use App\Helpers\ResponseHelper;
+use App\Services\ProductService;
 use PDO;
 use Predis\Client;
 
 class SalesController
 {
-    private PDO $pdo;
-    public string $apikey;
-    public string $city;
-    public string $openAI;
-    protected $service;
+    private $pdo;
+    public $apikey;
+    public $city;
+    public $openAI;
+    protected $orderService;
+    protected $productService;
 
-    public function __construct(string $dbClass)
+    public function __construct($dbClass)
     {
         $this->pdo = $dbClass::pdo();
         $this->apikey = $_ENV['WATHER_API_KEY'] ?? '';
         $this->city = $_ENV['CITY'] ?? 'Cairo';
         $this->openAI = $_ENV['OPENAI_API_KEY'] ?? '';
-        $this->service = new OrderService();
+        $this->orderService = new OrderService();
+        $this->productService = new ProductService();
 
     }
 
     public function getAllProducts()
     {
-        $products = $this->pdo->query("SELECT id, name, price FROM products")->fetchAll(PDO::FETCH_ASSOC);
+        $products = $this->productService->getAll();
+
         return ResponseHelper::json([
             'data' => $products,
             'count' => count($products)
@@ -40,7 +44,7 @@ class SalesController
         if (!$input) return ResponseHelper::json(['error' => 'Invalid JSON'], 400);
 
         try {
-            $orderData = $this->service->createOrder($input);
+            $orderData = $this->orderService->createOrder($input);
             return ResponseHelper::json([
                 'data' => $orderData,
                 'status' => 'order saved'
@@ -208,7 +212,7 @@ class SalesController
         return $data['main']['temp'] ?? null;
     }
 
-    private function getDynamicPrice(float $basePrice, float $temperature): float
+    private function getDynamicPrice($basePrice, $temperature): float
     {
         if ($temperature > 30) {
             return round($basePrice * 1.1, 2);

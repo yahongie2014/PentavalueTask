@@ -74,13 +74,15 @@
     socket.onerror = (err) => console.error("WebSocket error", err);
 
     async function createRandomOrder() {
-        const products = await fetch('/products').then(res => res.json());
-        if (!products.length) return alert("No products found.");
+        const response = await fetch('/products');
+        const result = await response.json();
 
-        const random = products[Math.floor(Math.random() * products.length)];
+        if (!result.data?.length) return alert("No products found.");
+
+        const random = result.data[Math.floor(Math.random() * result.data.length)];
         const quantity = Math.floor(Math.random() * 5) + 1;
 
-        await fetch('/create_order', {
+        const orderResponse = await fetch('/create_order', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -89,17 +91,16 @@
                 price: random.price,
                 date: new Date().toISOString().slice(0, 19).replace('T', ' ')
             })
-        }).then(res => res.json()).then(order => {
+        });
+
+        const order = await orderResponse.json();
+
+        if (order.data) {
             socket.send(JSON.stringify({
                 event: 'new_order',
-                data: {
-                    product_name: random.name,
-                    quantity: quantity,
-                    price: random.price,
-                    date: new Date().toISOString().slice(0, 19).replace('T', ' ')
-                }
+                data: order.data
             }));
-        });
+        }
     }
 
     function fetchAndSendAnalytics() {

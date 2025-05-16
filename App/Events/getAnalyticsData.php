@@ -2,9 +2,9 @@
 
 namespace Event;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../Connectivity/DB.php';
-require_once __DIR__ . '/../Connectivity/MySQLConnection.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../Connectivity/DB.php';
+require_once __DIR__ . '/../../Connectivity/MySQLConnection.php';
 
 use Connectivity\DB;
 use PDO;
