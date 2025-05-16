@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Real-Time Sales Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 p-8">
+<div class="max-w-3xl mx-auto space-y-6">
+
+    <h1 class="text-3xl font-bold text-center">📊 Sales Dashboard</h1>
+
+    <div class="bg-white shadow-md rounded-xl p-6">
+        <h2 class="text-xl font-semibold mb-4">🆕 Live Orders</h2>
+        <button onclick="createRandomOrder()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            ➕ Create Random Order
+        </button>
+        <div id="log" class="mt-4 h-64 overflow-y-scroll bg-gray-50 border border-gray-300 rounded p-4 space-y-2"></div>
+    </div>
+
+    <div class="bg-white shadow-md rounded-xl p-6">
+        <h2 class="text-xl font-semibold mb-4">📈 Real-Time Analytics</h2>
+        <div id="analytics" class="space-y-2 text-sm">
+            <div>💰 <strong>Total Revenue:</strong> <span id="totalRevenue">--</span></div>
+            <div>📦 <strong>Orders Last Minute:</strong> <span id="ordersLastMinute">--</span></div>
+            <div>⏱ <strong>Revenue Last Minute:</strong> <span id="revenueLastMinute">--</span></div>
+            <div>🔥 <strong>Top Products:</strong>
+                <ul id="topProducts" class="list-disc list-inside ml-4 mt-1 text-gray-700"></ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        fetchAndSendAnalytics();
+        setInterval(fetchAndSendAnalytics, 60000);
+    });
+
+
+    const socket = new WebSocket("ws://127.0.0.1:8080");
+    const log = document.getElementById("log");
+    const totalRevenue = document.getElementById("totalRevenue");
+    const ordersLastMinute = document.getElementById("ordersLastMinute");
+    const revenueLastMinute = document.getElementById("revenueLastMinute");
+    const topProducts = document.getElementById("topProducts");
+
+    socket.onmessage = (event) => {
+        const msg = JSON.parse(event.data);
+        if (msg.event === "new_order") {
+            const item = document.createElement("div");
+            item.className = "bg-green-100 text-green-800 px-3 py-2 rounded shadow";
+            item.textContent = `🆕 Order → Product Name: ${msg.data.product_name}, Qty: ${msg.data.quantity}, Price: ${msg.data.price}, Created At: ${msg.data.date}`;
+            log.prepend(item);
+        }
+
+        if (msg.event === "analytics_updated") {
+            updateAnalytics(msg.data);
+        }
+    };
+
+    socket.onopen = () => {
+        console.log("✅ WebSocket connected");
+        // socket.send(JSON.stringify({event: "test", data: "Hello!"}));
+    }
+    socket.onerror = (err) => console.error("WebSocket error", err);
+
+    async function createRandomOrder() {
+        const products = await fetch('/products').then(res => res.json());
+        if (!products.length) return alert("No products found.");
+
+        const random = products[Math.floor(Math.random() * products.length)];
+        const quantity = Math.floor(Math.random() * 5) + 1;
+
+        await fetch('/create_order', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                product_id: random.id,
+                quantity: quantity,
+                price: random.price,
+                date: new Date().toISOString().slice(0, 19).replace('T', ' ')
+            })
+        }).then(res => res.json()).then(order => {
+            socket.send(JSON.stringify({
+                event: 'new_order',
+                data: {
+                    product_name: random.name,
+                    quantity: quantity,
+                    price: random.price,
+                    date: new Date().toISOString().slice(0, 19).replace('T', ' ')
+                }
+            }));
+        });
+    }
+
+    function fetchAndSendAnalytics() {
+        fetch('/analytics')
+            .then(res => res.json())
+            .then(data => {
+                console.log("📊 Loaded analytics:", data);
+                sendAnalyticsToSocket(data);
+            });
+    }
+
+    function sendAnalyticsToSocket(data) {
+        if (socket.readyState === WebSocket.OPEN) {
+            socket.send(JSON.stringify({
+                event: 'analytics_updated',
+                data: data
+            }));
+        } else {
+            console.warn("WebSocket not open, retrying later...");
+        }
+    }
+
+
+    function updateAnalytics(data) {
+        console.log("📊 Received Analytics Data:", data);
+
+        totalRevenue.textContent = `EGP ${parseFloat(data.total_revenue).toFixed(2)}`;
+        ordersLastMinute.textContent = data.orders_last_minute;
+        revenueLastMinute.textContent = `EGP ${parseFloat(data.revenue_last_minute).toFixed(2)}`;
+
+        topProducts.innerHTML = '';
+        data.top_products.forEach(prod => {
+            const li = document.createElement('li');
+            li.textContent = `${prod.product_name} (${prod.total_sold} sold)`;
+            topProducts.appendChild(li);
+        });
+    }
+</script>
+</body>
+</html>

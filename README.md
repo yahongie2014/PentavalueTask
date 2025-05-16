@@ -1,0 +1,77 @@
+# PentavalueTask
+
+## Tree Project
+```
+├───App
+│       SalesController.php
+│
+├───Connectivity
+│       DatabaseConnection.php
+│       DB.php
+│       MySQLConnection.php
+│
+├───Events
+│       getAnalyticsData.php
+│
+├───MindMap
+│       Router.php
+│
+└───public
+        .htaccess
+        index.html
+│   .gitignore
+│   Backend Task.pdf
+│   composer.json
+│   index.php
+│   Installation.bat
+│   LICENSE
+│   README.md
+│   RealTime Orders Revenue.postman_collection.json
+│   Redis.php
+│   server.php
+│   start-all.bat
+│   .env.example
+```
+
+
+
+## Installation
+#### Automatic
+Run `Installation.bat` to install composer and copy `.env.example` => `.env`  then Run `start-all.bat` to run Server & Socket
+- [http://127.0.0.1:8000](http://127.0.0.1:8000/)
+
+#### Manual
+- `cp .env.example .env`
+- `composer install`
+- `php -S 127.0.0.1:8000`
+- `php server.php` | `php Redis.php`
+- run server on [http://127.0.0.1:8000](http://127.0.0.1:8000/)
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+Connection:
+
+`HOST`
+
+`DB_NAME`
+
+`USER_NAME`
+
+`PASSWORD`
+
+API INTEGRATIONS:
+
+`OPENAI_API_KEY`
+
+`WATHER_API_KEY`
+
+`CITY`
+
+
+## Authors
+
+[Website](https://www.coder79.me/)
+| [Linkedin](https://www.linkedin.com/in/devahmedsaeed/)
+| [Youtube](https://www.youtube.com/AhmedSaeedcoder79/)
+

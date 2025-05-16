@@ -1,0 +1,6 @@
+kind: wasmer.io/App.v0
+name: pentavaluetask
+owner: yahongie2014
+package: .
+scaling:
+  mode: single_concurrency

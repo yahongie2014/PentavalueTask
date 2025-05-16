@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "d914e9e9-80ab-420d-aea6-5ebfadad056f",
+		"name": "RealTime Orders Revenue",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2836787",
+		"_collection_link": "https://back-bone.postman.co/workspace/BackBone's-Public-Workspace~db05af3a-489f-4f2f-bf90-cb519b0e4641/collection/2836787-d914e9e9-80ab-420d-aea6-5ebfadad056f?action=share&source=collection_link&creator=2836787"
+	},
+	"item": [
+		{
+			"name": "Create Order",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"product_id\": 1,\r\n    \"quantity\": 2,\r\n    \"price\": 10.5,\r\n    \"date\": \"2025-05-16 20:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LOCAL}}/create_order",
+					"host": [
+						"{{LOCAL}}"
+					],
+					"path": [
+						"create_order"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Order",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"product_id\": 1,\r\n    \"quantity\": 2,\r\n    \"price\": 10.5,\r\n    \"date\": \"2025-05-16 20:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/create_order",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"create_order"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 16 May 2025 04:01:27 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.4.2"
+						},
+						{
+							"key": "Content-type",
+							"value": "text/html; charset=UTF-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\"status\":\"order saved\"}"
+				}
+			]
+		},
+		{
+			"name": "Analytics Orders & Revenue",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LOCAL}}/analytics",
+					"host": [
+						"{{LOCAL}}"
+					],
+					"path": [
+						"analytics"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Analytics Orders & Revenue",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/analytics",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"analytics"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 16 May 2025 04:14:16 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.4.2"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"total_revenue\": 3236,\n    \"top_products\": [\n        {\n            \"product_name\": \"Cola\",\n            \"total_sold\": \"84\"\n        },\n        {\n            \"product_name\": \"Water\",\n            \"total_sold\": \"79\"\n        },\n        {\n            \"product_name\": \"Coffee\",\n            \"total_sold\": \"67\"\n        },\n        {\n            \"product_name\": \"Tea\",\n            \"total_sold\": \"52\"\n        },\n        {\n            \"product_name\": \"Juice\",\n            \"total_sold\": \"46\"\n        }\n    ],\n    \"revenue_last_minute\": 84,\n    \"count_orders_last_minute\": 4\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Recommendations",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LOCAL}}/recommendations",
+					"host": [
+						"{{LOCAL}}"
+					],
+					"path": [
+						"recommendations"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Recommendations",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/recommendations",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"recommendations"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 16 May 2025 04:15:51 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.4.2"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"recommendations\": \"Mocked response from OpenAI based on: Current temperature is 20.79°C.\\nHere is the recent product order summary:\\n[\\n    {\\n        \\\"product_name\\\": \\\"Cola\\\",\\n        \\\"total_ordered\\\": \\\"8\\\"\\n    }\\n]\\nSuggest which products to promote (e.g., hot drinks on cold days, cold drinks on hot days).\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Seed & Migrations",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LOCAL}}/seed",
+					"host": [
+						"{{LOCAL}}"
+					],
+					"path": [
+						"seed"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Seed & Migrations",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/seed",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"seed"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 16 May 2025 04:17:23 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.4.2"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"Database seeded with demo products and orders\"\n}"
+				}
+			]
+		},
+		{
+			"name": "All Products",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LOCAL}}/products",
+					"host": [
+						"{{LOCAL}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "All Products",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL}}/products",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 16 May 2025 04:17:42 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.4.2"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 6,\n        \"name\": \"Cola\",\n        \"price\": 10\n    },\n    {\n        \"id\": 7,\n        \"name\": \"Water\",\n        \"price\": 5\n    },\n    {\n        \"id\": 8,\n        \"name\": \"Coffee\",\n        \"price\": 15\n    },\n    {\n        \"id\": 9,\n        \"name\": \"Tea\",\n        \"price\": 12\n    },\n    {\n        \"id\": 10,\n        \"name\": \"Juice\",\n        \"price\": 8\n    }\n]"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "LOCAL",
+			"value": "http://127.0.0.1:8000",
+			"type": "string"
+		}
+	]
+}
