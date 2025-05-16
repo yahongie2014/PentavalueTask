@@ -1,8 +1,8 @@
 {
-  "name": "yahongie2014/pentavaluetask",
+  "name": "vendor/coder-mvc",
   "version": "1.0.0",
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.2 <9.0",
     "cboden/ratchet": "^0.4.4",
     "predis/predis": "^3.0",
     "vlucas/phpdotenv": "^5.6"
@@ -11,8 +11,8 @@
     "psr-4": {
       "Connectivity\\": "Connectivity/",
       "App\\": "App/",
-      "MindMap\\": "MindMap/",
-      "Events\\": "Events/"
+      "Events\\": "Events/",
+      "MindMap\\": "MindMap/"
     }
   }
 }
