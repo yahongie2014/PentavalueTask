@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Helpers\ResponseHelper;
 use PDO;
 use Predis\Client;
 
@@ -23,8 +24,10 @@ class SalesController
     public function getAllProducts()
     {
         $products = $this->pdo->query("SELECT id, name, price FROM products")->fetchAll(PDO::FETCH_ASSOC);
-        header('Content-Type: application/json');
-        echo json_encode($products);
+        return ResponseHelper::json([
+            'data' => $products,
+            'count' => count($products)
+        ]);
     }
 
     public function handleNewOrder()
@@ -47,8 +50,10 @@ class SalesController
             'price' => $input['price'],
             'date' => $input['date'] ?? date('Y-m-d H:i:s')
         ];
-        header('Content-Type: application/json');
-        echo json_encode(['status' => 'order saved']);
+        return ResponseHelper::json([
+            'data' => $orderData,
+            'status' => 'order saved'
+        ]);
         $this->publishToWebSocket('new_order', $orderData);
     }
 
@@ -64,8 +69,7 @@ class SalesController
         $recentRevenue = $this->pdo->query("SELECT SUM(price * quantity) FROM orders WHERE created_at >= '$oneMinAgo'")->fetchColumn() ?? 0;
         $recentCount = $this->pdo->query("SELECT COUNT(*) FROM orders WHERE created_at >= '$oneMinAgo'")->fetchColumn() ?? 0;
 
-        header('Content-Type: application/json');
-        echo json_encode([
+        return ResponseHelper::json([
             'total_revenue' => $totalRevenue,
             'top_products' => $topProducts,
             'revenue_last_minute' => $recentRevenue,
@@ -128,12 +132,12 @@ class SalesController
             "Suggested promotion: {$recommendedTypes} " .
             "Adjusted pricing based on Weather: " . $suggestedType .
             " Like: " . implode(', ', $suggestedProducts);
-        header('Content-Type: application/json');
 
-        echo json_encode([
+        return ResponseHelper::json([
             'recommendations' => $prompt,
             'adjusted_prices' => $adjustedProducts,
-        ], JSON_PRETTY_PRINT);
+        ]);
+
     }
 
     private function publishToWebSocket($event, $data)
@@ -179,9 +183,9 @@ class SalesController
                 $orderStmt->execute([$productId, $quantity, $price, $date]);
             }
         }
-        header('Content-Type: application/json');
-
-        echo json_encode(['status' => 'Database seeded with demo products and orders']);
+        return ResponseHelper::json([
+            'message' => 'Database seeded with demo products and orders'
+        ]);
     }
 
     private function getWeather(): ?float
@@ -205,6 +209,7 @@ class SalesController
             return null;
         }
         header('Content-Type: application/json');
+
         $data = json_decode($response, true);
         return $data['main']['temp'] ?? null;
     }

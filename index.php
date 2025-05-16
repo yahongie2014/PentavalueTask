@@ -6,6 +6,7 @@ require_once __DIR__ . '/Connectivity/DBConnectionInterface.php';
 require_once __DIR__ . '/Connectivity/MySQLConnection.php';
 require_once __DIR__ . '/MindMap/Router.php';
 require_once __DIR__ . '/App/SalesController.php';
+require_once __DIR__ . '/Helpers/ResponseHelper.php';
 
 use Dotenv\Dotenv;
 use Connectivity\DB;
