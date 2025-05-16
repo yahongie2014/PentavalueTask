@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Services\OrderService;
 use Helpers\ResponseHelper;
 use PDO;
 use Predis\Client;
@@ -12,6 +13,7 @@ class SalesController
     public string $apikey;
     public string $city;
     public string $openAI;
+    protected $service;
 
     public function __construct(string $dbClass)
     {
@@ -19,6 +21,8 @@ class SalesController
         $this->apikey = $_ENV['WATHER_API_KEY'] ?? '';
         $this->city = $_ENV['CITY'] ?? 'Cairo';
         $this->openAI = $_ENV['OPENAI_API_KEY'] ?? '';
+        $this->service = new OrderService();
+
     }
 
     public function getAllProducts()
@@ -32,29 +36,19 @@ class SalesController
 
     public function handleNewOrder()
     {
-        $input = json_decode(file_get_contents('php://input'), true);
-        $stmt = $this->pdo->prepare("INSERT INTO orders (product_id, quantity, price, created_at) VALUES (?, ?, ?, ?)");
-        $stmt->execute([
-            $input['product_id'],
-            $input['quantity'],
-            $input['price'],
-            $input['date'] ?? date('Y-m-d H:i:s')
-        ]);
+        $input = json_decode(file_get_contents("php://input"), true);
+        if (!$input) return ResponseHelper::json(['error' => 'Invalid JSON'], 400);
 
-        $stmt = $this->pdo->prepare("SELECT name FROM products WHERE id = ?");
-        $stmt->execute([$input['product_id']]);
-        $product = $stmt->fetch(PDO::FETCH_ASSOC);
-        $orderData = [
-            'product_name' => $product['name'] ?? 'Unknown',
-            'quantity' => $input['quantity'],
-            'price' => $input['price'],
-            'date' => $input['date'] ?? date('Y-m-d H:i:s')
-        ];
-        return ResponseHelper::json([
-            'data' => $orderData,
-            'status' => 'order saved'
-        ]);
-        $this->publishToWebSocket('new_order', $orderData);
+        try {
+            $orderData = $this->service->createOrder($input);
+            return ResponseHelper::json([
+                'data' => $orderData,
+                'status' => 'order saved'
+            ]);
+        } catch (\Exception $e) {
+            return ResponseHelper::json(['error' => $e->getMessage()], 500);
+        }
+
     }
 
     public function getAnalytics()

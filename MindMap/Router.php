@@ -2,6 +2,8 @@
 
 namespace MindMap;
 
+use Helpers\ResponseHelper;
+
 class Router
 {
     private array $routes = [];
@@ -17,8 +19,8 @@ class Router
         if (isset($this->routes[$method][$path])) {
             call_user_func($this->routes[$method][$path]);
         } else {
-            http_response_code(404);
-            echo json_encode(['error' => 'Endpoint not found']);
+            ResponseHelper::json(['error' => 'Endpoint not found'], 400);
+
         }
     }
 }
