@@ -4,7 +4,7 @@ namespace Connectivity;
 
 use PDO;
 
-interface DatabaseConnection
+interface DBConnectionInterface
 {
     public function connect(): PDO;
 

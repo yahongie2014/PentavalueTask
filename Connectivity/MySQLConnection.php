@@ -5,7 +5,7 @@ namespace Connectivity;
 use PDO;
 use PDOException;
 
-class MySQLConnection implements DatabaseConnection
+class MySQLConnection implements DBConnectionInterface
 {
     private string $host;
     private string $port;
