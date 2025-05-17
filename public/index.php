@@ -61,8 +61,16 @@
         fetchAndSendAnalytics();
         setInterval(fetchAndSendAnalytics, 60000);
     });
-    
-    const socket = new WebSocket("<?php echo $_ENV['URL_SOCKET']?>");
+
+
+    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    let socket;
+
+    if (isLocalhost) {
+        socket = new WebSocket("ws://127.0.0.1:8080");
+    } else {
+        socket = new WebSocket("wss://pentavaluetask-production.up.railway.app");
+    }
     const log = document.getElementById("log");
     const totalRevenue = document.getElementById("totalRevenue");
     const ordersLastMinute = document.getElementById("ordersLastMinute");
