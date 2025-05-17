@@ -66,9 +66,7 @@
     const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 
     const socket = new WebSocket(
-        isLocalhost
-            ? "ws://127.0.0.1:8080"
-            : "<?php echo $_ENV['URL_SOCKET'] ?? 'ws://pentavaluetask-production.up.railway.app:8080'?>"
+        "<?php $_ENV['URL_SOCKET']?>"
     );
     const log = document.getElementById("log");
     const totalRevenue = document.getElementById("totalRevenue");
