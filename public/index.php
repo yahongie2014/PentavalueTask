@@ -68,7 +68,7 @@
     const socket = new WebSocket(
         isLocalhost
             ? "ws://127.0.0.1:8080"
-            : "wss://pentavaluetask-9pllig.fly.dev"
+            : <?php echo $_ENV['URL_SOCKET'] ?? 'ws://pentavaluetask-production.up.railway.app:8080'?>
     );
     const log = document.getElementById("log");
     const totalRevenue = document.getElementById("totalRevenue");
