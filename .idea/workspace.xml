@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="070d7a1d-3afc-4077-8fb0-07323e43ba2a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/router.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MindMap/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/MindMap/Router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +57,7 @@
       <option name="presentableId" value="Default" />
       <updated>1747441246572</updated>
       <workItem from="1747441249314" duration="520000" />
-      <workItem from="1747441912756" duration="2785000" />
+      <workItem from="1747441912756" duration="3135000" />
     </task>
     <servers />
   </component>
