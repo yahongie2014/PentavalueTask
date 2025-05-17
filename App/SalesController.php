@@ -224,14 +224,14 @@ class SalesController
 
     public function getFrontPage()
     {
-        header("Location: /public");
+        header("Location: /public/index.php");
         exit;
 
     }
 
     public function getAPiRequest()
     {
-        header("Location: /test-api.html");
+        header("Location: /test-api.php");
         exit();
 
     }
