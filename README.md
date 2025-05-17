@@ -19,11 +19,9 @@ This Project Structured Using SOLID & MVC Pattern
 │   Installation.bat
 │   LICENSE
 │   README.md
-│   RealTime Orders Revenue.postman_collection.json
 │   Redis.php
 │   server.php
 │   start-all.bat
-│   task.png
 │
 ├───App
 │   │   SalesController.php
@@ -47,15 +45,25 @@ This Project Structured Using SOLID & MVC Pattern
 │       DBConnectionInterface.php
 │       MySQLConnection.php
 │
+├───docs
+│       Backend Task.pdf
+│       Real-Time Sales Dashboard.wav
+│       RealTime Orders Revenue.postman_collection.json
+│
 ├───MindMap
 │       Router.php
+│
+├───node-ws
+│       docker-compose.yml
+│       Dockerfile
+│       package.json
+│       server.js
 │
 └───public
         .htaccess
         index.php
         router.php
-        test-api.php
-```
+        test-api.php```
 
 
 
