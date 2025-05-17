@@ -1,3 +1,6 @@
 vendor/*
 composer.lock
 .env
+node_modules/*
+package-lock.json
+.idea/*

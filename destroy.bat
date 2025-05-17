@@ -5,6 +5,9 @@ rmdir /s /q .idea
 echo Deleting vendor folder...
 rmdir /s /q vendor
 
+echo Deleting node_modules folder...
+rmdir /s /q node_modules
+
 echo Deleting composer.lock...
 del /f /q composer.lock
 
