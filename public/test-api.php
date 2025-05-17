@@ -28,6 +28,7 @@
         <pre id="apiResult" class="bg-gray-100 p-3 rounded text-sm overflow-x-auto h-64"></pre>
     </div>
 </div>
+
 <footer class="bg-gray-100 py-4 mt-10">
     <div class="container mx-auto text-center space-x-4">
         <!-- GitHub Button -->
