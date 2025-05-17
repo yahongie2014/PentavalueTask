@@ -84,22 +84,28 @@ To run this project, you will need to add the following environment variables to
 
 Connection:
 
-`HOST`
+`DB_HOST`
 
 `DB_NAME`
 
-`USER_NAME`
+`DB_USERNAME`
 
-`PASSWORD`
+`DB_PASSWORD`
+
+`DB_PORT`
 
 API INTEGRATIONS:
 
 `OPENAI_API_KEY`
 
 `WATHER_API_KEY`
+, `CITY`
 
-`CITY`
 
+Socket Live Handle:
+`URL_SOCKET`
+`APP_ENV`
+`REDIS_HOST`
 
 ## Authors
 
