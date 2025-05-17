@@ -49,7 +49,7 @@
             </svg>
             <span>GitHub</span>
         </a>
-        <a href="/RealTime%20Orders%20Revenue.postman_collection.json" download
+        <a href="../docs/RealTime%20Orders%20Revenue.postman_collection.json" download
            class="inline-flex items-center bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 space-x-2 transition">
             <img src="https://www.svgrepo.com/show/354202/postman-icon.svg" alt="Postman" class="w-5 h-5">
             <span>Download Postman</span>
