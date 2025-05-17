@@ -19,8 +19,7 @@ class Router
         if (isset($this->routes[$method][$path])) {
             call_user_func($this->routes[$method][$path]);
         } else {
-            header("Location: /test-api.html");
-            exit();
+            ResponseHelper::json(['error' => 'Endpoint not found'], 400);
 
         }
     }

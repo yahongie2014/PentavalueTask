@@ -10,8 +10,8 @@
     <div class="flex justify-between items-center bg-white p-4 rounded-xl shadow-md mb-6">
         <h1 class="text-xl font-bold">🚀 Sales Ticket</h1>
         <div class="space-x-2">
-            <a href="/" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">🏠 Dashboard</a>
-            <a href="/test-api" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800">🧪 Test API</a>
+            <a href="index.php" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">🏠 Dashboard</a>
+            <a href="./test-api.php" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800">🧪 Test API</a>
         </div>
     </div>
 

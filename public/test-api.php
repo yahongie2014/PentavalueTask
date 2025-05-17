@@ -10,7 +10,7 @@
 
     <div class="flex justify-between items-center bg-white p-4 rounded-xl shadow-md mb-6">
         <h1 class="text-xl font-bold">🧪 Universal API Tester</h1>
-        <a href="/" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">🏠 Dashboard</a>
+        <a href="index.php" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">🏠 Dashboard</a>
     </div>
 
     <div class="bg-white p-6 rounded shadow space-y-4">
