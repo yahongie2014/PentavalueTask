@@ -60,7 +60,7 @@ This Project Structured Using SOLID & MVC Pattern
 
 
 ## Installation
-#### Automatic
+#### Automatic [Online](https://pentavaluetask-9pllig.fly.dev/index.php)
 Run `Installation.bat` to install composer and copy `.env.example` => `.env`  then Run `start-all.bat` to run Server & Socket
 - [http://127.0.0.1:8000](http://127.0.0.1:8000/)
 
