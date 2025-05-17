@@ -6,6 +6,8 @@ services:
     container_name: sales-ticket-app
     ports:
       - "8000:8000"
+    env_file:
+      - .env
     volumes:
       - .:/var/www
     command: php -S 0.0.0.0:8000 -t public
