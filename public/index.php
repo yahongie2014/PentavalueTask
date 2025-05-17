@@ -65,9 +65,7 @@
 
     const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 
-    const socket = new WebSocket(
-        "<?php $_ENV['URL_SOCKET']?>"
-    );
+    const socket = new WebSocket("<?php echo $_ENV['URL_SOCKET']?>");
     const log = document.getElementById("log");
     const totalRevenue = document.getElementById("totalRevenue");
     const ordersLastMinute = document.getElementById("ordersLastMinute");

@@ -24,8 +24,9 @@ if (file_exists($staticFile) && pathinfo($staticFile, PATHINFO_EXTENSION) === 'h
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-DB::init(new MySQLConnection());
-$controller = new SalesController(DB::class);
+DB::init();
+$db = new DB();
+$controller = new SalesController($db);
 $router = new Router();
 
 $router->register('POST', '/create_order', [$controller, 'handleNewOrder']);
