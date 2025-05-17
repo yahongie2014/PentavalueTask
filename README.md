@@ -1,7 +1,10 @@
 # PentavalueTask
 ## Summary
-This Project Structured Using SOLID & MVC Pattern
-``Micro Frame Work`` Inpired From Art Of Laravel Structure build by Native Code using PSR-4 Standard Some Help From AI To Gen Fronted Design Structure Build By Me :)
+This project is structured using SOLID principles and follows the ``MVC pattern``.
+It is a lightweight ``Micro Frame Work`` inspired by the architecture of Laravel,
+built natively in PHP with adherence to the PSR-4 autoloading standard.
+The frontend design is AI-assisted, but the structure, logic, and code are proudly handcrafted by me. 😊
+
 ![](frame.gif)
 
 
