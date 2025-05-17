@@ -2,24 +2,27 @@
 
 namespace App\Repositories;
 
-use Connectivity\DB;
+use Connectivity\DBConnectionInterface;
 
 class ProductRepository
 {
+    protected \PDO $db;
+
+    public function __construct(DBConnectionInterface $connection)
+    {
+        $this->db = $connection->connect();
+    }
+
     public function all(): array
     {
-        $db = DB::connect();
-        $stmt = $db->query("SELECT id, name, price FROM products");
+        $stmt = $this->db->query("SELECT id, name, price FROM products");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getNameById($id): ?array
+    public function getNameById(int $id): ?array
     {
-        $db = DB::connect();
-        $stmt = $db->prepare("SELECT name FROM products WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT name FROM products WHERE id = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 }
-
-?>

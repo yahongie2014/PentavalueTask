@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\ProductRepository;
+use Connectivity\DB;
 
 class ProductService
 {
@@ -10,7 +11,8 @@ class ProductService
 
     public function __construct()
     {
-        $this->repo = new ProductRepository();
+        $db = new DB();
+        $this->repo = new ProductRepository($db);
     }
 
     public function getAll(): array

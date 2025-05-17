@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\OrderRepository;
 use App\Repositories\ProductRepository;
+use Connectivity\DB;
 
 class OrderService
 {
@@ -12,8 +13,9 @@ class OrderService
 
     public function __construct()
     {
-        $this->orderRepo = new OrderRepository();
-        $this->productRepo = new ProductRepository();
+        $this->orderRepo = new OrderRepository(new DB());
+
+        $this->productRepo = new ProductRepository(new DB());
     }
 
     public function createOrder(array $data): array

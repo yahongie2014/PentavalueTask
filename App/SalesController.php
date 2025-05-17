@@ -5,6 +5,7 @@ namespace App;
 use App\Services\OrderService;
 use App\Helpers\ResponseHelper;
 use App\Services\ProductService;
+use Connectivity\DB;
 use PDO;
 use Predis\Client;
 
@@ -17,9 +18,9 @@ class SalesController
     protected $orderService;
     protected $productService;
 
-    public function __construct($dbClass)
+    public function __construct()
     {
-        $this->pdo = $dbClass::pdo();
+        $this->pdo = (new DB())->connect();
         $this->apikey = $_ENV['WATHER_API_KEY'] ?? '';
         $this->city = $_ENV['CITY'] ?? 'Cairo';
         $this->openAI = $_ENV['OPENAI_API_KEY'] ?? '';

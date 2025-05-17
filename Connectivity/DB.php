@@ -4,7 +4,7 @@ namespace Connectivity;
 
 use PDO;
 
-class DB
+class DB implements DBConnectionInterface
 {
     public static PDO $connection;
 
@@ -15,20 +15,19 @@ class DB
         $conn->migrate();
     }
 
-    public static function connect(): PDO
+    public function connect(): PDO
     {
-        if (self::$connection === null) {
+        if (!isset(self::$connection)) {
             $conn = new MySQLConnection();
             self::$connection = $conn->connect();
-             $conn->migrate();
         }
 
         return self::$connection;
     }
 
-
-    public static function pdo(): PDO
+    public function migrate(): void
     {
-        return self::$connection;
+        $conn = new MySQLConnection();
+        $conn->migrate();
     }
 }

@@ -2,16 +2,17 @@
 
 namespace Connectivity;
 
+use App\Helpers\ResponseHelper;
 use PDO;
 use PDOException;
 
 class MySQLConnection implements DBConnectionInterface
 {
-    private string $host;
-    private string $port;
-    private string $dbname;
-    private string $username;
-    private string $password;
+    private $host;
+    private $port;
+    private $dbname;
+    private $username;
+    private $password;
     private PDO $pdo;
 
     public function __construct()
@@ -35,7 +36,7 @@ class MySQLConnection implements DBConnectionInterface
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $this->pdo;
         } catch (PDOException $e) {
-            die(json_encode(['error' => 'Database connection failed: ' . $e->getMessage()]));
+            die(ResponseHelper::json(['error' => 'Database connection failed: ' . $e->getMessage()]));
         }
     }
 
