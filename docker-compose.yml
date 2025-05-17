@@ -1,18 +1,17 @@
 version: '3.8'
 
 services:
-  php-app:
+  app:
     build: .
     ports:
       - "8080:8080"
     volumes:
-      - .:/var/www
+      - .:/var/www/html
     depends_on:
-      - node-ws
-
-  node-ws:
-    build:
-      context: ./node-ws
+      - redis
+    env_file:
+      - .env
+  redis:
+    image: redis:alpine
     ports:
-      - "3001:3001"
-    working_dir: /app
+      - "6379:6379"

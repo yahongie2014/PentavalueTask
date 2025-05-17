@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  php-app:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/var/www
+    depends_on:
+      - node-ws
+
+  node-ws:
+    build:
+      context: ./node-ws
+    ports:
+      - "3001:3001"
