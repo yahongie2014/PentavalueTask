@@ -14,7 +14,6 @@ use Connectivity\MySQLConnection;
 use App\SalesController;
 use MindMap\Router;
 
-
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $staticFile = __DIR__ . '/public' . $requestUri;
 if (file_exists($staticFile) && pathinfo($staticFile, PATHINFO_EXTENSION) === 'html') {
