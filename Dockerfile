@@ -14,4 +14,4 @@ RUN composer install
 
 EXPOSE 8000
 
-CMD ["php", "-S", "0.0.0.0:8080", "-t", "public", "public/router.php"]
+CMD ["php", "-S", "0.0.0.0:8080", "-t", "public", "public/router.php","server.php"]
