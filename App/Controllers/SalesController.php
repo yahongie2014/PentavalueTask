@@ -28,6 +28,17 @@ class SalesController extends BaseController
 
     }
 
+    public function getFrontPage()
+    {
+        $this->redirect('/public/index.php');
+    }
+
+    public function getAPiRequest()
+    {
+        $this->redirect('/test-api.php');
+    }
+
+
     public function getAllProducts()
     {
         $this->only('GET');
@@ -59,31 +70,12 @@ class SalesController extends BaseController
     {
         $now = time();
         $oneMinAgo = date('Y-m-d H:i:s', $now - 60);
-
-        $totalRevenue = $this->pdo->query("SELECT SUM(price * quantity) FROM orders")->fetchColumn() ?? 0;
-        $topProducts = $this->pdo->query("SELECT p.name as product_name, SUM(o.quantity) as total_sold 
-            FROM orders o JOIN products p ON o.product_id = p.id 
-            GROUP BY o.product_id ORDER BY total_sold DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
-        $recentRevenue = $this->pdo->query("SELECT SUM(price * quantity) FROM orders WHERE created_at >= '$oneMinAgo'")->fetchColumn() ?? 0;
-        $recentCount = $this->pdo->query("SELECT COUNT(*) FROM orders WHERE created_at >= '$oneMinAgo'")->fetchColumn() ?? 0;
-        $orders_last_minute = $this->pdo->query("
-    SELECT p.name AS product_name, SUM(o.quantity) AS total_sold
-    FROM orders o
-    JOIN products p ON o.product_id = p.id
-    WHERE o.created_at >= NOW() - INTERVAL 1 MINUTE
-    GROUP BY o.product_id
-    HAVING total_sold > 2
-    ORDER BY total_sold DESC
-    LIMIT 1
-")->fetch(PDO::FETCH_ASSOC);
-
-
-        return ResponseHelper::json([
-            'total_revenue' => $totalRevenue,
-            'top_products' => $topProducts,
-            'orders_last_minute' => $orders_last_minute,
-            'revenue_last_minute' => $recentRevenue,
-            'count_orders_last_minute' => $recentCount
+        return $this->json([
+            'total_revenue' => $this->orderService->getTotalRevenue(),
+            'top_products' => $this->orderService->getTopProducts(),
+            'orders_last_minute' => $this->orderService->getTopOrderLastMinute(),
+            'revenue_last_minute' => $this->orderService->getRecentRevenue($oneMinAgo),
+            'count_orders_last_minute' => $this->orderService->getRecentCount($oneMinAgo),
         ]);
     }
 
@@ -198,27 +190,16 @@ class SalesController extends BaseController
         ]);
     }
 
-    private function getWeather(): ?float
+    private function getWeather()
     {
         $url = "https://api.openweathermap.org/data/2.5/weather?q=" . urlencode($this->city) . "&appid={$this->apikey}&units=metric";
 
-        $ch = curl_init();
+        $response = $this->curlRequest($url);
 
-        curl_setopt_array($ch, [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 10,
-        ]);
-
-        $response = curl_exec($ch);
-        $error = curl_error($ch);
-        curl_close($ch);
-
-        if ($error || !$response) {
-            error_log("Weather API error for {$this->city}: " . $error);
+        if (!$response) {
+            error_log("Weather API error for {$this->city}");
             return null;
         }
-        header('Content-Type: application/json');
 
         $data = json_decode($response, true);
         return $data['main']['temp'] ?? null;
@@ -232,16 +213,6 @@ class SalesController extends BaseController
             return round($basePrice * 0.9, 2);
         }
         return $basePrice;
-    }
-
-    public function getFrontPage()
-    {
-        $this->redirect('/public/index.php');
-    }
-
-    public function getAPiRequest()
-    {
-        $this->redirect('/test-api.php');
     }
 
 }

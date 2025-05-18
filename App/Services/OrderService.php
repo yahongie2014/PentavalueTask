@@ -1,5 +1,7 @@
 <?php
 
+//Order Factory
+
 namespace App\Services;
 
 use App\Repositories\OrderRepository;
@@ -44,6 +46,31 @@ class OrderService
 
         return $orderData;
     }
+    public function getTotalRevenue(): float
+    {
+        return $this->orderRepo->getTotalRevenue();
+    }
+
+    public function getTopProducts(int $limit = 5): array
+    {
+        return $this->orderRepo->getTopProducts($limit);
+    }
+
+    public function getRecentRevenue(string $since): float
+    {
+        return $this->orderRepo->getRecentRevenue($since);
+    }
+
+    public function getRecentCount(string $since): int
+    {
+        return $this->orderRepo->getRecentCount($since);
+    }
+
+    public function getTopOrderLastMinute(int $minQty = 2): ?array
+    {
+        return $this->orderRepo->getTopOrderLastMinute($minQty);
+    }
+
 }
 
 ?>

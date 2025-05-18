@@ -15,7 +15,7 @@ class ProductService
         $this->repo = new ProductRepository($db);
     }
 
-    public function getAll(): array
+    public function getAll()
     {
         return $this->repo->all();
     }
