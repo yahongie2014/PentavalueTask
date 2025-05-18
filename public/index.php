@@ -62,15 +62,7 @@
         setInterval(fetchAndSendAnalytics, 60000);
     });
 
-
-    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-    let socket;
-
-    if (isLocalhost) {
-        socket = new WebSocket("ws://127.0.0.1:8080");
-    } else {
-        socket = new WebSocket("wss://pentavaluetask-production.up.railway.app");
-    }
+    socket = new WebSocket("ws://127.0.0.1:8080");
     const log = document.getElementById("log");
     const totalRevenue = document.getElementById("totalRevenue");
     const ordersLastMinute = document.getElementById("ordersLastMinute");

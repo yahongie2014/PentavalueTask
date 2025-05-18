@@ -1,17 +1,17 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/Connectivity/DB.php';
-require_once __DIR__ . '/Connectivity/DBConnectionInterface.php';
-require_once __DIR__ . '/Connectivity/MySQLConnection.php';
-require_once __DIR__ . '/MindMap/Router.php';
-require_once __DIR__ . '/App/SalesController.php';
-require_once __DIR__ . '/App/Helpers/ResponseHelper.php';
+array_map(fn($file) => require_once $file, array_merge(
+    [__DIR__ . '/vendor/autoload.php'],
+    glob(__DIR__ . '/Connectivity/*.php'),
+    glob(__DIR__ . '/MindMap/*.php'),
+    glob(__DIR__ . '/App/Controllers/*.php'),
+    glob(__DIR__ . '/App/Repositories/*.php'),
+    glob(__DIR__ . '/App/Services/*.php'),
+    glob(__DIR__ . '/App/Helpers/*.php')
+));
 
 use Dotenv\Dotenv;
-use Connectivity\DB;
-use Connectivity\MySQLConnection;
-use App\SalesController;
+use App\Controllers\SalesController;
 use MindMap\Router;
 
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -24,10 +24,8 @@ if (file_exists($staticFile) && pathinfo($staticFile, PATHINFO_EXTENSION) === 'h
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-DB::init();
-$db = new DB();
-$controller = new SalesController($db);
 $router = new Router();
+$controller = SalesController::class;
 
 $router->register('POST', '/create_order', [$controller, 'handleNewOrder']);
 $router->register('GET', '/analytics', [$controller, 'getAnalytics']);

@@ -1,26 +1,25 @@
 <?php
 
-namespace App;
+namespace App\Controllers;
 
+use PDO;
+use Predis\Client;
 use App\Services\OrderService;
 use App\Helpers\ResponseHelper;
 use App\Services\ProductService;
-use Connectivity\DB;
-use PDO;
-use Predis\Client;
 
-class SalesController
+class SalesController extends BaseController
 {
-    private $pdo;
     public $apikey;
     public $city;
     public $openAI;
     protected $orderService;
     protected $productService;
 
-    public function __construct()
+    public function __construct($db = null)
     {
-        $this->pdo = (new DB())->connect();
+        parent::__construct($db);
+
         $this->apikey = $_ENV['WATHER_API_KEY'] ?? '';
         $this->city = $_ENV['CITY'] ?? 'Cairo';
         $this->openAI = $_ENV['OPENAI_API_KEY'] ?? '';
@@ -225,16 +224,12 @@ class SalesController
 
     public function getFrontPage()
     {
-        header("Location: /public/index.php");
-        exit;
-
+        $this->redirect('/public/index.php');
     }
 
     public function getAPiRequest()
     {
-        header("Location: /test-api.php");
-        exit();
-
+        $this->redirect('/test-api.php');
     }
 
 }
