@@ -38,7 +38,6 @@ class SalesController extends BaseController
         $this->redirect('/test-api.php');
     }
 
-
     public function getAllProducts()
     {
         $this->only('GET');
