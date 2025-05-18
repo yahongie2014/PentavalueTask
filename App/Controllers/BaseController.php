@@ -41,4 +41,13 @@ abstract class BaseController
         header("Location: $url");
         exit;
     }
+
+    protected function only(string $method)
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== strtoupper($method)) {
+            http_response_code(405);
+            exit($this->json(['error' => 'Method Not Allowed'], 405));
+        }
+    }
+
 }

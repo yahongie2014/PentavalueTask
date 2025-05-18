@@ -30,6 +30,7 @@ class SalesController extends BaseController
 
     public function getAllProducts()
     {
+        $this->only('GET');
         $products = $this->productService->getAll();
 
         return ResponseHelper::json([
@@ -40,17 +41,16 @@ class SalesController extends BaseController
 
     public function handleNewOrder()
     {
-        $input = json_decode(file_get_contents("php://input"), true);
-        if (!$input) return ResponseHelper::json(['error' => 'Invalid JSON'], 400);
+        $this->only('POST');
+
+        $request = $this->input();
+        if (!$request) return $this->json(['error' => 'Invalid JSON'], 400);
 
         try {
-            $orderData = $this->orderService->createOrder($input);
-            return ResponseHelper::json([
-                'data' => $orderData,
-                'status' => 'order saved'
-            ]);
+            $order = $this->orderService->createOrder($request);
+            return $this->json(['data' => $order, 'status' => 'order saved']);
         } catch (\Exception $e) {
-            return ResponseHelper::json(['error' => $e->getMessage()], 500);
+            return $this->serverError($e->getMessage());
         }
 
     }
