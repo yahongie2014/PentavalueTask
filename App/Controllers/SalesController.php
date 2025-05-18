@@ -66,10 +66,22 @@ class SalesController extends BaseController
             GROUP BY o.product_id ORDER BY total_sold DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
         $recentRevenue = $this->pdo->query("SELECT SUM(price * quantity) FROM orders WHERE created_at >= '$oneMinAgo'")->fetchColumn() ?? 0;
         $recentCount = $this->pdo->query("SELECT COUNT(*) FROM orders WHERE created_at >= '$oneMinAgo'")->fetchColumn() ?? 0;
+        $orders_last_minute = $this->pdo->query("
+    SELECT p.name AS product_name, SUM(o.quantity) AS total_sold
+    FROM orders o
+    JOIN products p ON o.product_id = p.id
+    WHERE o.created_at >= NOW() - INTERVAL 1 MINUTE
+    GROUP BY o.product_id
+    HAVING total_sold > 2
+    ORDER BY total_sold DESC
+    LIMIT 1
+")->fetch(PDO::FETCH_ASSOC);
+
 
         return ResponseHelper::json([
             'total_revenue' => $totalRevenue,
             'top_products' => $topProducts,
+            'orders_last_minute' => $orders_last_minute,
             'revenue_last_minute' => $recentRevenue,
             'count_orders_last_minute' => $recentCount
         ]);

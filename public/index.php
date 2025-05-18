@@ -144,7 +144,8 @@
         console.log("📊 Received Analytics Data:", data);
 
         totalRevenue.textContent = `EGP ${parseFloat(data.total_revenue).toFixed(2)}`;
-        ordersLastMinute.textContent = data.orders_last_minute;
+        const order = data.orders_last_minute;
+        ordersLastMinute.textContent = `📦 Orders Last Minute: ${order.product_name} - Qty: ${order.total_sold}`;
         revenueLastMinute.textContent = `EGP ${parseFloat(data.revenue_last_minute).toFixed(2)}`;
 
         topProducts.innerHTML = '';
