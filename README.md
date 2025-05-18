@@ -10,8 +10,10 @@ The frontend design is AI-assisted, but the structure, logic, and code are proud
 
 ## Tree Project
 ```
+│   .env
 │   .env.example
 │   .gitignore
+│   1.gif
 │   composer.json
 │   destroy.bat
 │   docker-compose.yml
@@ -27,7 +29,9 @@ The frontend design is AI-assisted, but the structure, logic, and code are proud
 │   start-all.bat
 │
 ├───App
-│   │   SalesController.php
+│   ├───Controllers
+│   │       BaseController.php
+│   │       SalesController.php
 │   │
 │   ├───Events
 │   │       getAnalyticsData.php
@@ -56,18 +60,11 @@ The frontend design is AI-assisted, but the structure, logic, and code are proud
 ├───MindMap
 │       Router.php
 │
-├───node-ws
-│       docker-compose.yml
-│       Dockerfile
-│       package.json
-│       server.js
-│
 └───public
         .htaccess
         index.php
         router.php
-        test-api.php```
-
+        test-api.php
 ```
 
 ## Installation
