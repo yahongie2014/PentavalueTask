@@ -11,7 +11,6 @@ use PDO;
 
 DB::init();
 $pdo = DB::pdo();
-
 function getAnalyticsData(PDO $pdo): array
 {
     $now = time();
