@@ -158,8 +158,8 @@ class SalesController extends BaseController
 
     public function seedDatabase()
     {
-        $this->pdo->exec("DELETE FROM orders");
-        $this->pdo->exec("DELETE FROM products");
+//        $this->pdo->exec("DELETE FROM orders");
+//        $this->pdo->exec("DELETE FROM products");
 
         $products = [
             ['Cola', 10.0],
