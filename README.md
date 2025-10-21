@@ -1,5 +1,7 @@
 # 🚀 Real-Time Sales Dashboard
 
+**Assessment Link**: [Backend Developer Assessment Task](https://ancient-cork-5cc.notion.site/Penta-Value-Task-293773cf35f381a085f9d310345c6093)
+
 A modern PHP-based real-time sales tracking system with WebSocket support, dynamic pricing based on weather conditions, and live analytics.
 
 ## 📋 Table of Contents
